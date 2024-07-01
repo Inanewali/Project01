@@ -23,9 +23,9 @@ public class Application {
 
             // For operations requiring two inputs
             if (operation.equalsIgnoreCase("permutation")) {
-                System.out.print("Enter total number of items: ");
+                System.out.print("Enter first number: ");
                 int total = scanner.nextInt();
-                System.out.print("Enter number of items to select: ");
+                System.out.print("Enter second number: ");
                 int select = scanner.nextInt();
                 try {
                     System.out.println("Result (recursive): " + permutationRecursive(total, select));
