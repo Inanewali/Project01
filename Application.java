@@ -13,7 +13,7 @@ public class Application {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("\nEnter operation (add, subtract, multiply, divide, pow, sqrt, log, log10, sin, cos, tan, factorial) or 'exit' to quit:");
+            System.out.println("\nEnter operation (add, subtract, multiply, divide, pow, sqrt, log, log10, sin, cos, tan, factorial, permutation) or 'exit' to quit:");
             String operation = scanner.next();
 
             if (operation.equalsIgnoreCase("exit")) {
@@ -22,7 +22,18 @@ public class Application {
             }
 
             // For operations requiring two inputs
-            if (!operation.equalsIgnoreCase("sqrt") && !operation.equalsIgnoreCase("log") && !operation.equalsIgnoreCase("log10") &&
+            if (operation.equalsIgnoreCase("permutation")) {
+                System.out.print("Enter total number of items: ");
+                int total = scanner.nextInt();
+                System.out.print("Enter number of items to select: ");
+                int select = scanner.nextInt();
+                try {
+                    System.out.println("Result (recursive): " + permutationRecursive(total, select));
+                    System.out.println("Result (iterative): " + permutationIterative(total, select));
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            } else if (!operation.equalsIgnoreCase("sqrt") && !operation.equalsIgnoreCase("log") && !operation.equalsIgnoreCase("log10") &&
                 !operation.equalsIgnoreCase("sin") && !operation.equalsIgnoreCase("cos") && !operation.equalsIgnoreCase("tan") &&
                 !operation.equalsIgnoreCase("factorial")) {
                 System.out.print("Enter first number: ");
@@ -221,5 +232,28 @@ public class Application {
     // Tangent function
     public static double tan(double angleRadians) {
         return Math.tan(angleRadians);
+    }
+
+    // Permutation Recursive
+    public static long permutationRecursive(int total, int select) {
+        if (select > total || total < 0 || select < 0 || total > 100) {
+            throw new IllegalArgumentException("Invalid input values.");
+        }
+        if (select == 0) {
+            return 1;
+        }
+        return total * permutationRecursive(total - 1, select - 1);
+    }
+
+    // Permutation Iterative
+    public static long permutationIterative(int total, int select) {
+        if (select > total || total < 0 || select < 0 || total > 100) {
+            throw new IllegalArgumentException("Invalid input values.");
+        }
+        long result = 1;
+        for (int i = 0; i < select; i++) {
+            result *= total - i;
+        }
+        return result;
     }
 }
