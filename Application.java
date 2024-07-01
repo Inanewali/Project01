@@ -27,16 +27,23 @@ public class Application {
         } else {
             // No CLI arguments, ask for user input
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter operation (e.g., add, subtract, multiply, divide, factorial):");
-            String operation = scanner.next();
-            System.out.println("Enter the first number:");
-            double num1 = scanner.nextDouble();
-            double num2 = 0;
-            if (!operation.equalsIgnoreCase("factorial")) {
-                System.out.println("Enter the second number:");
-                num2 = scanner.nextDouble();
+            while (true) {
+                System.out.println("Enter operation (e.g., add, subtract, multiply, divide, factorial) or 'exit' to quit:");
+                String operation = scanner.next();
+                if (operation.equalsIgnoreCase("exit")) {
+                    System.out.println("Exiting the calculator. Goodbye!");
+                    break;
+                }
+                System.out.println("Enter the first number:");
+                double num1 = scanner.nextDouble();
+                double num2 = 0;
+                if (!operation.equalsIgnoreCase("factorial")) {
+                    System.out.println("Enter the second number:");
+                    num2 = scanner.nextDouble();
+                }
+                performOperation(operation, num1, num2);
             }
-            performOperation(operation, num1, num2);
+            scanner.close();
         }
     }
 
